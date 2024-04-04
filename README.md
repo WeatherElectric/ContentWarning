@@ -1,11 +1,5 @@
 # Content Warning Mods
 
-## Why Melonloader?
-Because Bepin is a bitch.
-
-## ContentLib
-A base library to make modding easier
-
 ## ContentPresence
 Discord rich presence for Content Warning
 
