@@ -15,7 +15,13 @@ public class LevelHandler
                 RpcManager.SetActivity(RpcManager.ActivityField.State, "At Home");
                 break;
             case SceneNames.Factory:
-                RpcManager.SetActivity(RpcManager.ActivityField.State, "Down In The Old World, at the Factory");
+                RpcManager.SetActivity(RpcManager.ActivityField.State, "Down In The Factory");
+                break;
+            case SceneNames.Harbor:
+                RpcManager.SetActivity(RpcManager.ActivityField.State, "Down In The Harbor");
+                break;
+            default:
+                RpcManager.SetActivity(RpcManager.ActivityField.State, $"In Unknown Scene: {levelName}");
                 break;
         }
     }
