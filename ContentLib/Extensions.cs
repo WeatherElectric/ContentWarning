@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace WeatherElectric.ContentLib;
 
+/// <summary>
+/// Contains extension methods
+/// </summary>
 public static class Extensions
 {
     /// <summary>
@@ -28,5 +31,16 @@ public static class Extensions
     {
         int random = Random.Range(0, list.Count);
         return list.ElementAt(random);
+    }
+    
+    /// <summary>
+    /// Get a percentage of a given float from a max value
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="max"></param>
+    /// <returns></returns>
+    public static int ToPercent(this float value, float max)
+    {
+        return Mathf.RoundToInt(value / max * 100f);
     }
 }

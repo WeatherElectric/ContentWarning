@@ -7,6 +7,9 @@ using WeatherElectric.ContentLib.Melon;
 
 namespace WeatherElectric.ContentLib;
 
+/// <summary>
+/// Contains helper methods
+/// </summary>
 public static class HelperMethods
 {
     /// <summary>

@@ -9,6 +9,14 @@
         <FileVersion>1.0.0.0</FileVersion>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\ContentLib.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\ContentLib.xml</DocumentationFile>
+    </PropertyGroup>
     
     <ItemGroup>
         <Reference Include="Assembly-CSharp">

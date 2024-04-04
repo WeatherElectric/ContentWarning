@@ -45,6 +45,7 @@ public class Main : MelonMod
     {
         if (DiscordClosed) return;
         RpcManager.Discord.RunCallbacks();
+        FilmHandler.Update();
     }
     
     private static bool DiscordOpen()
