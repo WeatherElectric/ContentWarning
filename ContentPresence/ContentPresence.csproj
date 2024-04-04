@@ -2,68 +2,71 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <Nullable>disable</Nullable>
-        <RootNamespace>WeatherElectric.ContentPresence</RootNamespace>
+        <AssemblyName>ContentPresence</AssemblyName>
+        <Description>Discord Rich Presence for Content Warning</Description>
+        <Version>1.0.0</Version>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
+        <RootNamespace>WeatherElectric.ContentPresence</RootNamespace>
         <Company>Weather Electric</Company>
         <Product>Content Presence</Product>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
-      <Reference Include="0Harmony">
-        <HintPath>..\Links\MelonLoader\net35\0Harmony.dll</HintPath>
-      </Reference>
-      <Reference Include="Assembly-CSharp">
-        <HintPath>..\Links\Game\Content Warning_Data\Managed\Assembly-CSharp.dll</HintPath>
-      </Reference>
-      <Reference Include="Assembly-CSharp-firstpass">
-        <HintPath>..\Links\Game\Content Warning_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-      </Reference>
-      <Reference Include="ContentLib">
-        <HintPath>..\Links\Mods\ContentLib.dll</HintPath>
-      </Reference>
-      <Reference Include="MelonLoader">
-        <HintPath>..\Links\MelonLoader\net35\MelonLoader.dll</HintPath>
-      </Reference>
-      <Reference Include="PhotonUnityNetworking">
-        <HintPath>..\Links\Game\Content Warning_Data\Managed\PhotonUnityNetworking.dll</HintPath>
-      </Reference>
-      <Reference Include="Unity.TextMeshPro">
-        <HintPath>..\Links\Game\Content Warning_Data\Managed\Unity.TextMeshPro.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.CoreModule">
-        <HintPath>..\Links\Game\Content Warning_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      </Reference>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.Core" Version="5.*"/>
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*"/>
+        <PackageReference Include="UnityEngine.Modules" Version="2022.3.10" IncludeAssets="compile"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Staging\**" />
-      <Compile Remove="Assets\**" />
+        <Reference Include="Assembly-CSharp">
+            <HintPath>..\Links\Game\Content Warning_Data\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+          <HintPath>..\Links\Game\Content Warning_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="PhotonUnityNetworking">
+            <HintPath>..\Links\Game\Content Warning_Data\Managed\PhotonUnityNetworking.dll</HintPath>
+        </Reference>
+        <Reference Include="Sirenix.Serialization">
+          <HintPath>..\Links\Game\Content Warning_Data\Managed\Sirenix.Serialization.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+            <HintPath>..\Links\Game\Content Warning_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
+        <Reference Include="Zorro.Core.Runtime">
+          <HintPath>..\Links\Game\Content Warning_Data\Managed\Zorro.Core.Runtime.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Remove="Staging\**" />
-      <None Remove="Resources\UserEntries.txt" />
-      <EmbeddedResource Include="Resources\UserEntries.txt" />
-      <None Remove="Resources\discord_game_sdk.dll" />
-      <EmbeddedResource Include="Resources\discord_game_sdk.dll" />
-      <EmbeddedResource Remove="Assets\**" />
+      <None Remove="NuGet.Config" />
       <None Remove="Assets\**" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Staging\**" />
+      <None Remove="README.md" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Melon\" />
-      <Folder Include="Presence\Helpers\" />
+      <EmbeddedResource Include="Resources\discord_game_sdk.dll" />
+      <EmbeddedResource Include="Resources\UserEntries.txt" />
+      <EmbeddedResource Remove="Assets\**" />
+      <EmbeddedResource Remove="Staging\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Assets\**" />
+      <Compile Remove="Staging\**" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Links/Mods&quot;" />
+      <Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Links\Mods&quot;&#xA;COPY &quot;$(TargetPath)&quot; &quot;$(ProjectDir)Staging\BepInEx\plugins&quot;" />
     </Target>
-
 </Project>

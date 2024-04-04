@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using WeatherElectric.ContentPresence.Melon;
+﻿using System.IO;
 
 namespace WeatherElectric.ContentPresence.Presence.Handlers;
 

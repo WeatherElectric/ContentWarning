@@ -1,8 +1,4 @@
-﻿using HarmonyLib;
-using MelonLoader;
-using WeatherElectric.ContentPresence.Melon;
-
-namespace WeatherElectric.ContentPresence.Presence.Handlers;
+﻿namespace WeatherElectric.ContentPresence.Presence.Handlers;
 
 internal static class DeathHandler
 {
@@ -19,9 +15,9 @@ internal static class DeathHandler
     {
         public static void Postfix(Player __instance)
         {
-            if (Main.DiscordClosed) return;
+            if (Plugin.DiscordClosed) return;
             if (__instance.IsLocal) RpcManager.SetActivity(RpcManager.ActivityField.State, "Dead");
-            if (Preferences.DetailsMode.Value != DetailsMode.Casualties) return;
+            if (Plugin.Mode.Value != DetailsMode.Casualties) return;
             _casualties++;
             RpcManager.SetActivity(RpcManager.ActivityField.Details, $"Casualties: {_casualties}");
         }

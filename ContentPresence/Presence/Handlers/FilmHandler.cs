@@ -1,7 +1,4 @@
-﻿using HarmonyLib;
-using WeatherElectric.ContentLib;
-
-namespace WeatherElectric.ContentPresence.Presence.Handlers;
+﻿namespace WeatherElectric.ContentPresence.Presence.Handlers;
 
 internal static class FilmHandler
 {
@@ -10,7 +7,7 @@ internal static class FilmHandler
     {
         public static void Postfix(VideoCamera __instance)
         {
-            if (Main.DiscordClosed) return;
+            if (Plugin.DiscordClosed) return;
             RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "recording");
             RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, $"Film Left: {Objects.VideoInfoEntry.timeLeft.ToPercent(Objects.VideoInfoEntry.maxTime)}%");
         }
@@ -21,7 +18,7 @@ internal static class FilmHandler
     {
         public static void Postfix(VideoCamera __instance)
         {
-            if (Main.DiscordClosed) return;
+            if (Plugin.DiscordClosed) return;
             RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
             RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, $"Film Left: {Objects.VideoInfoEntry.timeLeft.ToPercent(Objects.VideoInfoEntry.maxTime)}%");
         }

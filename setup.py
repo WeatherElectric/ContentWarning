@@ -28,26 +28,26 @@
 import sys
 import os
 
-bl_path = None
+cw_path = None
 while True:
-    bl_path = input("Where is Content Warning installed? ")
+    cw_path = input("Where is Content Warning installed? ")
 
-    if os.path.exists(bl_path):
+    if os.path.exists(cw_path):
         break
     else:
-        print("Path '" + bl_path + "' does not exist! Do you have permissions to read it? Did you enter the path wrong?")
+        print("Path '" + cw_path + "' does not exist! Do you have permissions to read it? Did you enter the path wrong?")
 
 # Does the user have a MelonLoader folder?
-ml_path = os.path.join(bl_path, "MelonLoader")
+bep_path = os.path.join(cw_path, "BepInEx")
 
-if not os.path.exists(ml_path):
-    print("MelonLoader folder was not found! Have you installed MelonLoader?")
+if not os.path.exists(bep_path):
+    print("BepInEx folder was not found! Have you installed BepInEx?")
     exit(1)
 
-mod_path = os.path.join(bl_path, "Mods")
+mod_path = os.path.join(bep_path, "plugins")
 
-if not os.path.exists(ml_path):
-    print("Mods folder was not found! Have you launched MelonLoader at least once?")
+if not os.path.exists(bep_path):
+    print("Plugins folder was not found! Have you launched BepInEx at least once?")
     exit(1)
 
 # Then bridge these folders into a local "Links" folder with a hard link
@@ -57,13 +57,13 @@ if not os.path.exists("./Links"):
     os.mkdir("./Links")
 
 os.symlink(mod_path, "./Links/Mods")
-os.symlink(ml_path, "./Links/MelonLoader")
-os.symlink(bl_path, "./Links/Game")
+os.symlink(bep_path, "./Links/BepInEx")
+os.symlink(cw_path, "./Links/Game")
 
 print("Finding Content Warning executable...")
 
-for file in os.listdir(bl_path):
+for file in os.listdir(cw_path):
     if file.endswith(".exe") and file.startswith("Content Warning"):
         print("Found '" + file + "'")
-        os.symlink(os.path.join(bl_path, file), "./Links/Content Warning.exe")
+        os.symlink(os.path.join(cw_path, file), "./Links/Content Warning.exe")
         break

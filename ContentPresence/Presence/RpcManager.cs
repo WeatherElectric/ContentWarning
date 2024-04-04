@@ -1,25 +1,19 @@
-﻿using System;
-using Discord;
-using WeatherElectric.ContentPresence.Melon;
+﻿using Discord;
 
 namespace WeatherElectric.ContentPresence.Presence;
 
 internal static class RpcManager
 {
     public static Discord.Discord Discord;
-    public static ActivityManager ActivityManager;
+    private static ActivityManager _activityManager;
     private static readonly long Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
     
     private static Activity _activity;
     
     public static void Init()
     {
-        ModConsole.Msg("Initializing RPC", 1);
-        Discord = new global::Discord.Discord(Preferences.DiscordAppId.Value, (ulong)CreateFlags.Default);
-        ModConsole.Msg($"Discord is {Discord}", 1);
-        ModConsole.Msg($"Application ID is {Preferences.DiscordAppId.Value}", 1);
-        ActivityManager = Discord.GetActivityManager();
-        ModConsole.Msg($"Activity manager is {ActivityManager}", 1);
+        Discord = new global::Discord.Discord(Plugin.DiscordAppId.Value, (ulong)CreateFlags.Default);
+        _activityManager = Discord.GetActivityManager();
         _activity = new Activity
         {
             State = "Loading Game...",
@@ -68,10 +62,10 @@ internal static class RpcManager
                 _activity.Secrets.Join = value;
                 break;
             case ActivityField.Party:
-                ModConsole.Error("This error is my fault, called a method wrong.");
+                Plugin.Mls.LogError("This error is my fault, called a method wrong.");
                 break;
             default:
-                ModConsole.Error("Invalid activity field!");
+                Plugin.Mls.LogError("Invalid activity field!");
                 break;
         }
         UpdateRpc();
@@ -81,28 +75,28 @@ internal static class RpcManager
         switch (activityField)
         {
             case ActivityField.State:
-                ModConsole.Error("This error is my fault, called a method wrong.");
+                Plugin.Mls.LogError("This error is my fault, called a method wrong.");
                 break;
             case ActivityField.Details:
-                ModConsole.Error("This error is my fault, called a method wrong.");
+                Plugin.Mls.LogError("This error is my fault, called a method wrong.");
                 break;
             case ActivityField.LargeImageKey:
-                ModConsole.Error("This error is my fault, called a method wrong.");
+                Plugin.Mls.LogError("This error is my fault, called a method wrong.");
                 break;
             case ActivityField.LargeImageText:
-                ModConsole.Error("This error is my fault, called a method wrong.");
+                Plugin.Mls.LogError("This error is my fault, called a method wrong.");
                 break;
             case ActivityField.SmallImageKey:
-                ModConsole.Error("This error is my fault, called a method wrong.");
+                Plugin.Mls.LogError("This error is my fault, called a method wrong.");
                 break;
             case ActivityField.SmallImageText:
-                ModConsole.Error("This error is my fault, called a method wrong.");
+                Plugin.Mls.LogError("This error is my fault, called a method wrong.");
                 break;
             case ActivityField.Party:
                 _activity.Party = party;
                 break;
             default:
-                ModConsole.Error("Invalid activity field!");
+                Plugin.Mls.LogError("Invalid activity field!");
                 break;
         }
         UpdateRpc();
@@ -122,16 +116,11 @@ internal static class RpcManager
 
     public static void UpdateRpc()
     {
-        ModConsole.Msg($"Setting activity | Details: {_activity.Details} | State: {_activity.State} | LargeImageKey: {_activity.Assets.LargeImage} | LargeImageText: {_activity.Assets.LargeText} | SmallImageKey: {_activity.Assets.SmallImage} | SmallImageText: {_activity.Assets.SmallText}", 1);
-        ActivityManager.UpdateActivity(_activity, (result) =>
+        _activityManager.UpdateActivity(_activity, (result) =>
         {
-            if (result == Result.Ok)
+            if (result != Result.Ok)
             {
-                ModConsole.Msg("Successfully set activity!", 1);
-            }
-            else
-            {
-                ModConsole.Error($"Failed to set activity: {result.ToString()}");
+                Plugin.Mls.LogError($"Failed to set activity: {result.ToString()}");
             }
         });
     }

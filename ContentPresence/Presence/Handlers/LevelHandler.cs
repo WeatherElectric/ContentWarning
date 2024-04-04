@@ -1,14 +1,11 @@
-﻿using WeatherElectric.ContentLib;
-using WeatherElectric.ContentPresence.Melon;
-
-namespace WeatherElectric.ContentPresence.Presence.Handlers;
+﻿namespace WeatherElectric.ContentPresence.Presence.Handlers;
 
 internal class LevelHandler
 {
     public static void OnLevelLoad(string levelName)
     {
-        if (Main.DiscordClosed) return;
-        switch (Preferences.DetailsMode.Value)
+        if (Plugin.DiscordClosed) return;
+        switch (Plugin.Mode.Value)
         {
             case DetailsMode.OxygenLeft when levelName == SceneNames.Home:
                 RpcManager.SetActivity(RpcManager.ActivityField.Details, "Around trees. Oxygen fine!");
@@ -23,7 +20,7 @@ internal class LevelHandler
                 DeathHandler.Reset();
                 break;
             default:
-                ModConsole.Error("Invalid Details Mode!");
+                Plugin.Mls.LogError("Invalid Details Mode!");
                 break;
         }
         
@@ -38,23 +35,23 @@ internal class LevelHandler
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
             case SceneNames.Home:
-                RpcManager.SetActivity(RpcManager.ActivityField.State, "At Home");
+                RpcManager.SetActivity(RpcManager.ActivityField.State, $"{PlayerFaceHandler.Face} | At Home | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, "home");
-                RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, "Home");
+                RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, $"{PlayerFaceHandler.Face} | Home | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
             case SceneNames.Factory:
-                RpcManager.SetActivity(RpcManager.ActivityField.State, "Down In The Factory");
+                RpcManager.SetActivity(RpcManager.ActivityField.State, $"{PlayerFaceHandler.Face} | Down In The Factory | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, "factory");
-                RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, "The Old World");
+                RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, $"{PlayerFaceHandler.Face} | The Old World | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
             case SceneNames.Harbor:
-                RpcManager.SetActivity(RpcManager.ActivityField.State, "Down In The Harbor");
+                RpcManager.SetActivity(RpcManager.ActivityField.State, $"{PlayerFaceHandler.Face} | Down In The Harbor | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, "harbor");
-                RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, "The Old World");
+                RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, $"{PlayerFaceHandler.Face} | The Old World | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
                 RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
