@@ -40,6 +40,7 @@
 
     <ItemGroup>
       <Compile Remove="Staging\**" />
+      <Compile Remove="Assets\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -48,6 +49,8 @@
       <EmbeddedResource Include="Resources\UserEntries.txt" />
       <None Remove="Resources\discord_game_sdk.dll" />
       <EmbeddedResource Include="Resources\discord_game_sdk.dll" />
+      <EmbeddedResource Remove="Assets\**" />
+      <None Remove="Assets\**" />
     </ItemGroup>
 
     <ItemGroup>
