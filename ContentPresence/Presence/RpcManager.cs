@@ -22,7 +22,7 @@ internal static class RpcManager
         ModConsole.Msg($"Activity manager is {ActivityManager}", 1);
         _activity = new Activity
         {
-            State = "Loading Game",
+            State = "In Main Menu",
 #if DEBUG
             Details = "boobs.",
 #endif

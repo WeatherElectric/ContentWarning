@@ -12,8 +12,23 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Reference Include="Assembly-CSharp">
+        <HintPath>..\Links\Game\Content Warning_Data\Managed\Assembly-CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="Assembly-CSharp-firstpass">
+        <HintPath>..\Links\Game\Content Warning_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      </Reference>
       <Reference Include="MelonLoader">
         <HintPath>..\Links\MelonLoader\net35\MelonLoader.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonUnityNetworking">
+        <HintPath>..\Links\Game\Content Warning_Data\Managed\PhotonUnityNetworking.dll</HintPath>
+      </Reference>
+      <Reference Include="Unity.TextMeshPro">
+        <HintPath>..\Links\Game\Content Warning_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>H:\Games\Steam\steamapps\common\Content Warning\Content Warning_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 

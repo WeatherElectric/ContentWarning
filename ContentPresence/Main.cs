@@ -11,9 +11,9 @@ public class Main : MelonMod
 {
     internal const string ModName = "ContentPresence";
     internal const string ModVersion = "1.0.0";
-    internal const string ModAuthor = "Weather Electric";
+    internal const string ModAuthor = "Weather Electric, SoulWithMae";
     
-    public static bool DiscordClosed;
+    public static bool DiscordClosed { get; private set; }
 
     public override void OnInitializeMelon()
     {
