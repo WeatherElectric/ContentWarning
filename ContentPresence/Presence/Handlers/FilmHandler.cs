@@ -6,7 +6,7 @@ namespace WeatherElectric.ContentPresence.Presence.Handlers;
 internal static class FilmHandler
 {
     [HarmonyPatch(typeof(VideoCamera), "StartRecording")]
-    public class OnCameraRecord
+    public class VideoCamera_StartRecording
     {
         public static void Postfix(VideoCamera __instance)
         {
@@ -17,7 +17,7 @@ internal static class FilmHandler
     }
     
     [HarmonyPatch(typeof(VideoCamera), "StopRecording")]
-    public class OnCameraStop
+    public class VideoCamera_StopRecording
     {
         public static void Postfix(VideoCamera __instance)
         {

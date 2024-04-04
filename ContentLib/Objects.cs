@@ -41,7 +41,7 @@ public static class Objects
     }
     
     [HarmonyPatch(typeof(VideoCamera), "Start")]
-    internal class OnCameraAwake
+    internal class VideoCamera_Start
     {
         public static void Postfix(VideoCamera __instance)
         {
@@ -53,7 +53,7 @@ public static class Objects
     }
     
     [HarmonyPatch(typeof(Player), "Start")]
-    internal class OnPlayerAwake
+    internal class Player_Start
     {
         public static void Postfix(Player __instance)
         {

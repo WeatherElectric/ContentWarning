@@ -34,26 +34,36 @@ internal class LevelHandler
                 RpcManager.SetActivity(RpcManager.ActivityField.State, "In Main Menu");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, "gamelogo");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, "Main Menu");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
             case SceneNames.Home:
                 RpcManager.SetActivity(RpcManager.ActivityField.State, "At Home");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, "home");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, "Home");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
             case SceneNames.Factory:
                 RpcManager.SetActivity(RpcManager.ActivityField.State, "Down In The Factory");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, "factory");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, "The Old World");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
             case SceneNames.Harbor:
                 RpcManager.SetActivity(RpcManager.ActivityField.State, "Down In The Harbor");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, "harbor");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, "The Old World");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
             default:
                 RpcManager.SetActivity(RpcManager.ActivityField.State, $"In Unknown Scene: {levelName}");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageKey, "gamelogo");
                 RpcManager.SetActivity(RpcManager.ActivityField.LargeImageText, "Unknown Scene");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
+                RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, "");
                 break;
         }
     }

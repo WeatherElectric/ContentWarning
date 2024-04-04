@@ -15,7 +15,7 @@ internal static class DeathHandler
     }
     
     [HarmonyPatch(typeof(Player), "Die")]
-    public class OnPlayerDeath
+    public class Player_Die
     {
         public static void Postfix(Player __instance)
         {

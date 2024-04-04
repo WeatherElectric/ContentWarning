@@ -48,7 +48,6 @@ public class Main : MelonMod
         if (DiscordClosed) return;
         RpcManager.Discord.RunCallbacks();
         FilmHandler.Update();
-        if (Preferences.DetailsMode.Value == DetailsMode.OxygenLeft) OxygenHandler.Update();
     }
     
     private static bool DiscordOpen()
