@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Nullable>disable</Nullable>
+        <RootNamespace>WeatherElectric.ContentPresence</RootNamespace>
+        <LangVersion>latest</LangVersion>
+        <Company>Weather Electric</Company>
+        <Product>Content Presence</Product>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="MelonLoader">
+        <HintPath>..\Links\MelonLoader\net35\MelonLoader.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Staging\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Staging\**" />
+      <None Remove="Resources\UserEntries.txt" />
+      <EmbeddedResource Include="Resources\UserEntries.txt" />
+      <None Remove="Resources\discord_game_sdk.dll" />
+      <EmbeddedResource Include="Resources\discord_game_sdk.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Staging\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Melon\" />
+      <Folder Include="Presence\Handlers\" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Links/Mods&quot;" />
+    </Target>
+
+</Project>
