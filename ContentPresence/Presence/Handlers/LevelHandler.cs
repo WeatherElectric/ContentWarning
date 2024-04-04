@@ -6,6 +6,7 @@ public class LevelHandler
 {
     public static void OnLevelLoad(string levelName)
     {
+        DeathHandler.Reset();
         switch (levelName)
         {
             case SceneNames.MainMenu:
