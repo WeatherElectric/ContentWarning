@@ -14,7 +14,7 @@
 .idea/
 
 # My stuff
-*.dll
+*/Staging/*.dll
 *.zip
 Links/
 

@@ -2,6 +2,7 @@
 using System.IO;
 using MelonLoader;
 using MelonLoader.Utils;
+using WeatherElectric.ContentLib;
 using WeatherElectric.ContentPresence.Internal;
 
 namespace WeatherElectric.ContentPresence.Melon;
@@ -33,7 +34,7 @@ internal static class UserData
             else
             {
                 ModConsole.Msg($"Legacy path not found, creating at {DllPath}", 1);
-                File.WriteAllBytes(DllPath, EmbeddedResource.GetResourceBytes("discord_game_sdk.dll"));
+                File.WriteAllBytes(DllPath, HelperMethods.GetResourceBytes("discord_game_sdk.dll"));
             }
         }
         if (!File.Exists(UserEntriesPath))
@@ -47,7 +48,7 @@ internal static class UserData
             else
             {
                 ModConsole.Msg($"Legacy path not found, creating at {UserEntriesPath}", 1);
-                File.WriteAllBytes(UserEntriesPath, EmbeddedResource.GetResourceBytes("UserEntries.txt"));
+                File.WriteAllBytes(UserEntriesPath, HelperMethods.GetResourceBytes("UserEntries.txt"));
             }
         }
         if (!_hasLoadedLib)

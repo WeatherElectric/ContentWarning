@@ -18,6 +18,9 @@
       <Reference Include="Assembly-CSharp-firstpass">
         <HintPath>..\Links\Game\Content Warning_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
       </Reference>
+      <Reference Include="ContentLib">
+        <HintPath>..\Links\Mods\ContentLib.dll</HintPath>
+      </Reference>
       <Reference Include="MelonLoader">
         <HintPath>..\Links\MelonLoader\net35\MelonLoader.dll</HintPath>
       </Reference>
@@ -28,7 +31,7 @@
         <HintPath>..\Links\Game\Content Warning_Data\Managed\Unity.TextMeshPro.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule">
-        <HintPath>H:\Games\Steam\steamapps\common\Content Warning\Content Warning_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+        <HintPath>..\Links\Game\Content Warning_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 
@@ -50,7 +53,7 @@
 
     <ItemGroup>
       <Folder Include="Melon\" />
-      <Folder Include="Presence\Handlers\" />
+      <Folder Include="Presence\Helpers\" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">

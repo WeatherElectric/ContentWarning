@@ -2,6 +2,7 @@
 using MelonLoader;
 using WeatherElectric.ContentPresence.Melon;
 using WeatherElectric.ContentPresence.Presence;
+using WeatherElectric.ContentPresence.Presence.Handlers;
 
 namespace WeatherElectric.ContentPresence;
 
@@ -29,6 +30,15 @@ public class Main : MelonMod
         if (DiscordClosed) return;
         RpcManager.Dispose();
         UserData.Dispose();
+    }
+    
+    public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+    {
+#if DEBUG
+        ModConsole.Msg($"Loaded scene: {sceneName}");
+#endif
+        if (DiscordClosed) return;
+        LevelHandler.OnLevelLoad(sceneName);
     }
 
     public override void OnUpdate()

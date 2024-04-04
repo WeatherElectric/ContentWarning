@@ -26,8 +26,11 @@
         <Reference Include="Unity.TextMeshPro">
             <HintPath>..\Links\Game\Content Warning_Data\Managed\Unity.TextMeshPro.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.AssetBundleModule">
+          <HintPath>..\Links\Game\Content Warning_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>H:\Games\Steam\steamapps\common\Content Warning\Content Warning_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>..\Links\Game\Content Warning_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     
