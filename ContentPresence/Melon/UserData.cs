@@ -10,7 +10,6 @@ namespace WeatherElectric.ContentPresence.Melon;
 internal static class UserData
 {
     private static readonly string UserDataDirectory = Path.Combine(MelonEnvironment.UserDataDirectory, "Weather Electric/Content Presence");
-    private static readonly string LegacyDirectory = Path.Combine(MelonEnvironment.UserDataDirectory, "Content Presence");
     private static readonly string DllPath = Path.Combine(UserDataDirectory, "discord_game_sdk.dll");
     public static readonly string UserEntriesPath = Path.Combine(UserDataDirectory, "UserEntries.txt");
     
@@ -26,30 +25,13 @@ internal static class UserData
         }
         if (!File.Exists(DllPath))
         {
-            ModConsole.Msg($"Discord SDK not unpacked, checking legacy path", 1);
-            if (Directory.Exists(LegacyDirectory) && File.Exists(Path.Combine(LegacyDirectory, "discord_game_sdk.dll")))
-            {
-                File.Move(Path.Combine(LegacyDirectory, "discord_game_sdk.dll"), DllPath);
-            }
-            else
-            {
-                ModConsole.Msg($"Legacy path not found, creating at {DllPath}", 1);
-                File.WriteAllBytes(DllPath, HelperMethods.GetResourceBytes("discord_game_sdk.dll"));
-            }
+            ModConsole.Msg($"Discord SDK not unpacked", 1);
+            File.WriteAllBytes(DllPath, HelperMethods.GetResourceBytes(Main.CurrAsm,"WeatherElectric.ContentPresence.Resources.discord_game_sdk.dll"));
         }
         if (!File.Exists(UserEntriesPath))
         {
-            ModConsole.Msg($"User entries file not unpacked, checking legacy path", 1);
-            if (Directory.Exists(LegacyDirectory) && File.Exists(Path.Combine(LegacyDirectory, "UserEntries.txt")))
-            {
-                var entries = Path.Combine(LegacyDirectory, "UserEntries.txt");
-                File.Move(entries, UserEntriesPath);
-            }
-            else
-            {
-                ModConsole.Msg($"Legacy path not found, creating at {UserEntriesPath}", 1);
-                File.WriteAllBytes(UserEntriesPath, HelperMethods.GetResourceBytes("UserEntries.txt"));
-            }
+            ModConsole.Msg($"User entries file not unpacked", 1);
+            File.WriteAllBytes(UserEntriesPath, HelperMethods.GetResourceBytes(Main.CurrAsm,"WeatherElectric.ContentPresence.Resources.UserEntries.txt"));
         }
         if (!_hasLoadedLib)
         {

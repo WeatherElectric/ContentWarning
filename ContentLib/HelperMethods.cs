@@ -39,9 +39,8 @@ public static class HelperMethods
     /// <summary>
     /// Gets the raw bytes of an embedded resource
     /// </summary>
-    public static byte[] GetResourceBytes(string filename)
+    public static byte[] GetResourceBytes(Assembly assembly, string filename)
     {
-        var assembly = Assembly.GetExecutingAssembly();
         foreach (var resource in assembly.GetManifestResourceNames())
         {
             if (resource.Contains(filename))

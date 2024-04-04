@@ -1,12 +1,32 @@
 ﻿using WeatherElectric.ContentLib;
+using WeatherElectric.ContentPresence.Melon;
 
 namespace WeatherElectric.ContentPresence.Presence.Handlers;
 
-public class LevelHandler
+internal class LevelHandler
 {
     public static void OnLevelLoad(string levelName)
     {
-        DeathHandler.Reset();
+        if (Main.DiscordClosed) return;
+        switch (Preferences.DetailsMode.Value)
+        {
+            case DetailsMode.OxygenLeft when levelName == SceneNames.Home:
+                RpcManager.SetActivity(RpcManager.ActivityField.Details, "Around trees. Oxygen fine!");
+                break;
+            case DetailsMode.OxygenLeft when levelName == SceneNames.MainMenu:
+                RpcManager.SetActivity(RpcManager.ActivityField.Details, "You don't need oxygen in the menu!");
+                break;
+            case DetailsMode.Entries:
+                EntryHandler.SetDetails();
+                break;
+            case DetailsMode.Casualties:
+                DeathHandler.Reset();
+                break;
+            default:
+                ModConsole.Error("Invalid Details Mode!");
+                break;
+        }
+        
         switch (levelName)
         {
             case SceneNames.MainMenu:

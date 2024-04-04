@@ -19,7 +19,7 @@ internal static class Preferences
         DiscordAppId = Category.CreateEntry("DiscordAppId", 1225293196914069524, "Discord Application ID",
             "The application ID for the Discord application that will be used for Rich Presence.");
         DetailsMode = Category.CreateEntry("DetailsMode", Melon.DetailsMode.Entries, "Details Mode",
-            "The mode for the details section. Possible Values: Entries, Casualties, DistanceFromPod");
+            "The mode for the details section. Possible Values: Entries, Casualties, OxygenLeft");
 
         GlobalCategory.SetFilePath(MelonEnvironment.UserDataDirectory + "/WeatherElectric.cfg");
         GlobalCategory.SaveToFile(false);
@@ -33,5 +33,5 @@ public enum DetailsMode
 {
     Entries,
     Casualties,
-    DistanceFromPod
+    OxygenLeft
 }

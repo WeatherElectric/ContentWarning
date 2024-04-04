@@ -16,5 +16,11 @@ namespace WeatherElectric.ContentLib
             ModConsole.Setup(LoggerInstance);
             Preferences.Setup();
         }
+
+        /// <inheritdoc />
+        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+        {
+            Objects.SetCurrentScene(sceneName);
+        }
     }
 }

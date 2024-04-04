@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using MelonLoader;
 using WeatherElectric.ContentPresence.Melon;
 using WeatherElectric.ContentPresence.Presence;
@@ -15,6 +16,7 @@ public class Main : MelonMod
     internal const string ModAuthor = "Weather Electric, SoulWithMae";
     
     public static bool DiscordClosed { get; private set; }
+    internal static Assembly CurrAsm => Assembly.GetExecutingAssembly();
 
     public override void OnInitializeMelon()
     {
@@ -46,6 +48,7 @@ public class Main : MelonMod
         if (DiscordClosed) return;
         RpcManager.Discord.RunCallbacks();
         FilmHandler.Update();
+        if (Preferences.DetailsMode.Value == DetailsMode.OxygenLeft) OxygenHandler.Update();
     }
     
     private static bool DiscordOpen()

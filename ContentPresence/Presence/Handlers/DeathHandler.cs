@@ -4,14 +4,14 @@ using WeatherElectric.ContentPresence.Melon;
 
 namespace WeatherElectric.ContentPresence.Presence.Handlers;
 
-public static class DeathHandler
+internal static class DeathHandler
 {
     private static int _casualties;
 
     public static void Reset()
     {
         _casualties = 0;
-        if (Preferences.DetailsMode.Value == DetailsMode.Casualties) RpcManager.SetActivity(RpcManager.ActivityField.Details, "No Casualties Yet!");
+        RpcManager.SetActivity(RpcManager.ActivityField.Details, "No Casualties Yet!");
     }
     
     [HarmonyPatch(typeof(Player), "Die")]
@@ -19,9 +19,11 @@ public static class DeathHandler
     {
         public static void Postfix(Player __instance)
         {
-            _casualties++;
-            if (Preferences.DetailsMode.Value == DetailsMode.Casualties) RpcManager.SetActivity(RpcManager.ActivityField.Details, $"Casualties: {_casualties}");
+            if (Main.DiscordClosed) return;
             if (__instance.IsLocal) RpcManager.SetActivity(RpcManager.ActivityField.State, "Dead");
+            if (Preferences.DetailsMode.Value != DetailsMode.Casualties) return;
+            _casualties++;
+            RpcManager.SetActivity(RpcManager.ActivityField.Details, $"Casualties: {_casualties}");
         }
     }
 }
