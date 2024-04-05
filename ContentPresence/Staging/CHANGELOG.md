@@ -1,3 +1,6 @@
+**v1.1.1**
+* Forgot to add AutoHookGenPatcher as a dependency
+
 **v1.1.0**
 * Moved over to AutoHookGen for patches
 * With AutoHookGen, if you use an external mod to change config mid-game, it will unpatch the unneeded hooks for the mode that is no longer selected.
