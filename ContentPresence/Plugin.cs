@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using BepInEx.Configuration;
 using BepInEx.Logging;
 
 namespace WeatherElectric.ContentPresence;
@@ -9,7 +8,7 @@ public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "WeatherElectric.SoulWithMae.ContentPresence";
     private const string PluginName = "ContentPresence";
-    private const string PluginVersion = "1.1.0";
+    private const string PluginVersion = "1.2.0";
     
     public static bool DiscordClosed { get; private set; }
     public static ManualLogSource Mls { get; private set; }
@@ -18,6 +17,9 @@ public class Plugin : BaseUnityPlugin
     {
         Mls = Logger;
         Logger.LogInfo($"Plugin {PluginGuid} is loaded!");
+#if DEBUG
+        Logger.LogWarning("This is a debug build! It may be unstable!");
+#endif
         
         Preferences.Config = Config;
         Preferences.Setup();
@@ -84,7 +86,6 @@ public class Plugin : BaseUnityPlugin
     {
         if (DiscordClosed) return;
         RpcManager.Dispose();
-        UserData.Dispose();
     }
 
     private static void OnSceneWasInitialized(Scene scene, LoadSceneMode mode)

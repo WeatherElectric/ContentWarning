@@ -58,7 +58,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Resources\discord_game_sdk.dll" />
       <EmbeddedResource Include="Resources\UserEntries.txt" />
       <EmbeddedResource Remove="Assets\**" />
       <EmbeddedResource Remove="Staging\**" />

@@ -1,3 +1,12 @@
+**v1.2.1**
+* Forgot to remove the embedded discord_game_sdk.dll
+
+**v1.2.0**
+* No longer loading an extra discord_game_sdk now that the game has it already
+
+**v1.1.2**
+* README update
+
 **v1.1.1**
 * Forgot to add AutoHookGenPatcher as a dependency
 

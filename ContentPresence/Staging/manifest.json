@@ -1,6 +1,6 @@
 {
     "name": "ContentPresence",
-    "version_number": "1.1.1",
+    "version_number": "1.2.1",
     "website_url": "https://github.com/WeatherElectric/ContentWarning/tree/master/ContentPresence",
     "description": "Adds Discord Rich Presence to Content Warning.",
     "dependencies": [

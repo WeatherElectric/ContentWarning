@@ -1,5 +1,10 @@
-﻿# Content Presence
+# Content Presence
 A mod for Content Warning that adds Discord Rich Presence
+
+## The base game has this now!
+It's still not as much as what mine does.
+
+The base game one only shows how many players you have, there's no text for levels, if you're recording, etc.
 
 ## What about the other one?
 The other one does not handle that many things, it just shows level name and quota.
