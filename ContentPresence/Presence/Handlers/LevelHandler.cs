@@ -5,18 +5,22 @@ internal class LevelHandler
     public static void OnLevelLoad(string levelName)
     {
         if (Plugin.DiscordClosed) return;
-        switch (Plugin.Mode.Value)
+        switch (Preferences.Mode.Value)
         {
-            case DetailsMode.OxygenLeft when levelName == SceneNames.Home:
+            case Preferences.DetailsMode.OxygenLeft when levelName == SceneNames.Home:
                 RpcManager.SetActivity(RpcManager.ActivityField.Details, "Around trees. Oxygen fine!");
                 break;
-            case DetailsMode.OxygenLeft when levelName == SceneNames.MainMenu:
+            case Preferences.DetailsMode.OxygenLeft when levelName == SceneNames.MainMenu:
                 RpcManager.SetActivity(RpcManager.ActivityField.Details, "You don't need oxygen in the menu!");
                 break;
-            case DetailsMode.Entries:
+            case Preferences.DetailsMode.Casualties when levelName == SceneNames.MainMenu:
+                RpcManager.SetActivity(RpcManager.ActivityField.Details, "You can't die in the menu!");
+                DeathHandler.Reset();
+                break;
+            case Preferences.DetailsMode.Entries:
                 EntryHandler.SetDetails();
                 break;
-            case DetailsMode.Casualties:
+            case Preferences.DetailsMode.Casualties:
                 DeathHandler.Reset();
                 break;
             default:

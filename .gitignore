@@ -14,7 +14,7 @@
 .idea/
 
 # My stuff
-*/Staging/*.dll
+*/Staging/BepInEx/plugins/*.dll
 *.zip
 Links/
 

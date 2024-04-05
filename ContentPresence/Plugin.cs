@@ -9,29 +9,75 @@ public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "WeatherElectric.SoulWithMae.ContentPresence";
     private const string PluginName = "ContentPresence";
-    private const string PluginVersion = "1.0.0";
+    private const string PluginVersion = "1.1.0";
     
     public static bool DiscordClosed { get; private set; }
-    
     public static ManualLogSource Mls { get; private set; }
-    
-    public static ConfigEntry<long> DiscordAppId;
-    public static ConfigEntry<DetailsMode> Mode;
-    
-    private Harmony _harmony;
     
     private void Awake()
     {
-        UserData.Setup();
-        _harmony = new Harmony(PluginGuid);
-        _harmony.PatchAll(Assembly.GetExecutingAssembly());
         Mls = Logger;
         Logger.LogInfo($"Plugin {PluginGuid} is loaded!");
-        DiscordAppId = Config.Bind("Discord", "DiscordAppId", 1225293196914069524, "The application ID that the mod will use.");
-        Mode = Config.Bind("Details", "DetailsMode", DetailsMode.Entries, "The mode for the details section. Possible Values: Entries, Casualties, OxygenLeft");
+        
+        Preferences.Config = Config;
+        Preferences.Setup();
+        UserData.Setup();
+        
         if (!DiscordOpen()) return;
+        InitialPrefCheck();
         RpcManager.Init();
+        PatchAll();
         SceneManager.sceneLoaded += OnSceneWasInitialized;
+        Preferences.Mode.SettingChanged += OnDetailModeChange;
+    }
+
+    private static void PatchAll()
+    {
+        PlayerFaceHandler.Patch();
+        FilmHandler.Patch();
+        QuotaHandler.Patch();
+        Objects.Patch();
+    }
+
+    private static void InitialPrefCheck()
+    {
+        switch (Preferences.Mode.Value)
+        {
+            case Preferences.DetailsMode.Entries:
+                break;
+            case Preferences.DetailsMode.Casualties:
+                DeathHandler.Patch();
+                break;
+            case Preferences.DetailsMode.OxygenLeft:
+                OxygenHandler.Patch();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private static void OnDetailModeChange(object obj, EventArgs eventArgs)
+    {
+        switch (Preferences.Mode.Value)
+        {
+            case Preferences.DetailsMode.Entries:
+                DeathHandler.Unpatch();
+                OxygenHandler.Unpatch();
+                EntryHandler.SetDetails();
+                break;
+            case Preferences.DetailsMode.Casualties:
+                DeathHandler.Patch();
+                OxygenHandler.Unpatch();
+                DeathHandler.PrefsChanged();
+                break;
+            case Preferences.DetailsMode.OxygenLeft:
+                DeathHandler.Unpatch();
+                OxygenHandler.Patch();
+                OxygenHandler.PrefsChanged();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void OnApplicationQuit()
@@ -71,11 +117,4 @@ public class Plugin : BaseUnityPlugin
         }
         return true;
     }
-}
-
-public enum DetailsMode
-{
-    Entries,
-    Casualties,
-    OxygenLeft
 }

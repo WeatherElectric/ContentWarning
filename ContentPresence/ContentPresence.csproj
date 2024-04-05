@@ -10,8 +10,8 @@
         <RootNamespace>WeatherElectric.ContentPresence</RootNamespace>
         <Company>Weather Electric</Company>
         <Product>Content Presence</Product>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <FileVersion>1.0.0.0</FileVersion>
+        <AssemblyVersion>1.0.1.0</AssemblyVersion>
+        <FileVersion>1.0.1.0</FileVersion>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
@@ -29,8 +29,11 @@
         <Reference Include="Assembly-CSharp-firstpass">
           <HintPath>..\Links\Game\Content Warning_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
-        <Reference Include="PhotonUnityNetworking">
-            <HintPath>..\Links\Game\Content Warning_Data\Managed\PhotonUnityNetworking.dll</HintPath>
+        <Reference Include="MMHOOK_Assembly-CSharp">
+          <HintPath>..\Links\Mods\MMHOOK\Managed\MMHOOK_Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Photon3Unity3D">
+          <HintPath>H:\Games\Steam\steamapps\common\Content Warning\Content Warning_Data\Managed\Photon3Unity3D.dll</HintPath>
         </Reference>
         <Reference Include="Sirenix.Serialization">
           <HintPath>..\Links\Game\Content Warning_Data\Managed\Sirenix.Serialization.dll</HintPath>

@@ -12,7 +12,7 @@ internal static class RpcManager
     
     public static void Init()
     {
-        Discord = new global::Discord.Discord(Plugin.DiscordAppId.Value, (ulong)CreateFlags.Default);
+        Discord = new global::Discord.Discord(Preferences.DiscordAppId.Value, (ulong)CreateFlags.Default);
         _activityManager = Discord.GetActivityManager();
         _activity = new Activity
         {

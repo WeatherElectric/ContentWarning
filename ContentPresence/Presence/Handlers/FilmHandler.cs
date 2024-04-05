@@ -2,30 +2,32 @@
 
 internal static class FilmHandler
 {
-    [HarmonyPatch(typeof(VideoCamera), "StartRecording")]
-    public class VideoCamera_StartRecording
+    public static void Patch()
     {
-        public static void Postfix(VideoCamera __instance)
-        {
-            if (Plugin.DiscordClosed) return;
-            RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "recording");
-            RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, $"Film Left: {Objects.VideoInfoEntry.timeLeft.ToPercent(Objects.VideoInfoEntry.maxTime)}%");
-        }
+        Plugin.Mls.LogInfo("Patching FilmHandler...");
+        On.VideoCamera.StartRecording += OnStartRecording;
+        On.VideoCamera.StopRecording += OnStopRecording;
     }
     
-    [HarmonyPatch(typeof(VideoCamera), "StopRecording")]
-    public class VideoCamera_StopRecording
+    private static void OnStartRecording(On.VideoCamera.orig_StartRecording orig, VideoCamera self, Clip clip)
     {
-        public static void Postfix(VideoCamera __instance)
-        {
-            if (Plugin.DiscordClosed) return;
-            RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
-            RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, $"Film Left: {Objects.VideoInfoEntry.timeLeft.ToPercent(Objects.VideoInfoEntry.maxTime)}%");
-        }
+        orig(self, clip);
+        if (Plugin.DiscordClosed) return;
+        RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "recording");
+        RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, $"Film Left: {Objects.VideoInfoEntry.timeLeft.ToPercent(Objects.VideoInfoEntry.maxTime)}%");
     }
-
+    
+    private static void OnStopRecording(On.VideoCamera.orig_StopRecording orig, VideoCamera self)
+    {
+        orig(self);
+        if (Plugin.DiscordClosed) return;
+        RpcManager.SetActivity(RpcManager.ActivityField.SmallImageKey, "notrecording");
+        RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, $"Film Left: {Objects.VideoInfoEntry.timeLeft.ToPercent(Objects.VideoInfoEntry.maxTime)}%");
+    }
+    
     public static void Update()
     {
+        if (Objects.VideoCamera == null) return;
         if (Objects.VideoCamera.recording)
         {
             RpcManager.SetActivity(RpcManager.ActivityField.SmallImageText, $"Film Left: {Objects.VideoInfoEntry.timeLeft.ToPercent(Objects.VideoInfoEntry.maxTime)}%");

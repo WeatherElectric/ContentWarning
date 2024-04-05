@@ -1,56 +1,82 @@
-﻿namespace WeatherElectric.ContentPresence.Presence.Handlers;
+﻿using System.Collections;
+
+namespace WeatherElectric.ContentPresence.Presence.Handlers;
 
 internal static class PlayerFaceHandler
 {
     public static string Face { get; private set; }
     private static PlayerVisor _playerVisor;
-    
-    [HarmonyPatch(typeof(PlayerVisor), "Start")]
-    public class PlayerVisor_Start
+
+    public static void Patch()
     {
-        public static void Postfix(PlayerVisor __instance)
-        {
-            if (!GetPlayer(__instance).IsLocal) return;
-            _playerVisor = __instance;
-        }
+        Plugin.Mls.LogInfo("Patching PlayerFaceHandler...");
+        On.PlayerVisor.Start += OnVisorStart;
+        On.PlayerCustomizer.SetFaceText += OnCustomizerSet;
+        On.PlayerCustomizer.OnApply += OnCustomizerApply;
+        On.PlayerCustomizer.OnQuit += OnCustomizerQuit;
     }
     
-    [HarmonyPatch(typeof(PlayerVisor), "LoadFaceFromPlayerPrefs")]
-    public class PlayerVisor_LoadFaceFromPlayerPrefs
+    private static IEnumerator OnVisorStart(On.PlayerVisor.orig_Start orig, PlayerVisor self)
     {
-        public static void Postfix(PlayerVisor __instance)
-        {
-            if (!GetPlayer(__instance).IsLocal) return;
-            Face = __instance.visorFaceText.text;
-        }
+        yield return orig(self);
+        if (GetPlayer(self).IsLocal) _playerVisor = self;
+        SetFace();
     }
     
-    [HarmonyPatch(typeof(PlayerCustomizer), "SetFaceText")]
-    public class PlayerCustomizer_SetFaceText
+    private static void OnCustomizerSet(On.PlayerCustomizer.orig_SetFaceText orig, PlayerCustomizer self, string text)
     {
-        public static void Postfix(PlayerCustomizer __instance)
-        {
-            if (!__instance.playerInTerminal.IsLocal) return;
-            SetFace();
-        }
+        orig(self, text);
+        if (!self.playerInTerminal.IsLocal) return;
+        SetFaceSpecial(text);
     }
     
-    [HarmonyPatch(typeof(PlayerCustomizer), "OnApply")]
-    public class PlayerCustomizer_OnApply
+    private static void OnCustomizerApply(On.PlayerCustomizer.orig_OnApply orig, PlayerCustomizer self)
     {
-        public static void Postfix(PlayerCustomizer __instance)
-        {
-            if (!__instance.playerInTerminal.IsLocal) return;
-            SetFace();
-        }
+        if (self.playerInTerminal.IsLocal) SetFace();
+        orig(self);
     }
     
-    [HarmonyPatch(typeof(PlayerCustomizer), "OnQuit")]
-    public class PlayerCustomizer_OnQuit
+    private static void OnCustomizerQuit(On.PlayerCustomizer.orig_OnQuit orig, PlayerCustomizer self)
     {
-        public static void Postfix(PlayerCustomizer __instance)
+        if (self.playerInTerminal.IsLocal) ResetFace();
+        orig(self);
+    }
+
+    private static void SetFaceSpecial(string face)
+    {
+        switch (SceneManager.GetActiveScene().name)
         {
-            SetFace();
+            case SceneNames.Home:
+                RpcManager.SetActivity(RpcManager.ActivityField.State,
+                    $"{face} | At Home | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
+                break;
+            case SceneNames.Factory:
+                RpcManager.SetActivity(RpcManager.ActivityField.State,
+                    $"{face} | Down In The Factory | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
+                break;
+            case SceneNames.Harbor:
+                RpcManager.SetActivity(RpcManager.ActivityField.State,
+                    $"{face} | Down In The Harbor | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
+                break;
+        }
+    }
+
+    private static void ResetFace()
+    {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case SceneNames.Home:
+                RpcManager.SetActivity(RpcManager.ActivityField.State,
+                    $"{Face} | At Home | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
+                break;
+            case SceneNames.Factory:
+                RpcManager.SetActivity(RpcManager.ActivityField.State,
+                    $"{Face} | Down In The Factory | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
+                break;
+            case SceneNames.Harbor:
+                RpcManager.SetActivity(RpcManager.ActivityField.State,
+                    $"{Face} | Down In The Harbor | {QuotaHandler.FulfilledQuota.AutoRound()} of {QuotaHandler.TotalQuota.AutoRound()} Views");
+                break;
         }
     }
     
